@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPi Demo Webserver</title>
+    
+    <!-- CSS fil fra static mappen -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <!-- Chart.js framework -->
+    <script src="/static/chart.js"></script>
+</head>
+<body>
+
+    <h1>Autostart Simulator</h1>
+
+    <!-- Telemetry Graph Canvas Box -->
+    <div class="container">
+        <div class="status-box">
+            <div class="status-item">
+                Simuleret Tid
+                <span id="txt-time">Time 0</span>
+            </div>
+            <div class="status-item">
+                Aktuel Antal Liter
+                <span id="txt-value">0.00</span>
+            </div>
+        </div>
+
+        <canvas id="liveChart"></canvas>
+    </div>
+    
+   <!-- Control canvas/box -->
+    <div class="control-panel">
+        <div class="btn-group">
+            <button class="btn btn-start" id="btn-start">START</button>
+            <button class="btn btn-stop" id="btn-stop">STOP</button>
+            <button class="btn btn-reset" id="btn-reset">RESET</button>
+        </div>
+        
+        <!-- Live Hardware Trigger Status Box (Nu med to rækker) -->
+        <div class="trigger-status">
+            <!-- Række 1: Grisestyring -->
+            <div class="status-row">
+                <span class="status-label">Grisestyring:</span>
+                <div id="trigger-dot" class="dot"></div>
+                <span id="trigger-text">Venter</span>
+            </div>
+
+            <!-- Række 2: System Status -->
+            <div class="status-row">
+                <span class="status-label">Faring:</span>
+                <div id="status-dot" class="dot"></div>
+                <span id="status-text">Ikke Påbegyndt</span>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- JavaScript fil fra static mappen lagt i bunden, så HTML indlæses først -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

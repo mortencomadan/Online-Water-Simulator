@@ -1,0 +1,127 @@
+:root {
+    --chart-blue-border: #0066cc;
+    --chart-blue-bg: rgba(0, 102, 204, 0.6);
+
+    --chart-yellow-border: #ffc107;
+    --chart-yellow-bg: rgba(255, 193, 7, 0.6);
+
+    --chart-red-border: #dc3545;
+    --chart-red-bg: rgba(220, 53, 69, 0.6);
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #1a1a24;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.container {
+    width: 80%;
+    max-width: 800px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+.control-panel {
+    width: 80%;
+    max-width: 800px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status-box {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background: #eef2f5;
+    padding: 15px;
+    border-radius: 10px;
+}
+.status-item { 
+    text-align: center; 
+    color: #555566;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.status-item span { 
+    display: block; 
+    font-size: 28px; 
+    font-weight: bold; 
+    color: #0066cc; 
+    margin-top: 5px;
+}
+.btn-group {
+    display: flex;
+    gap: 12px;
+}
+.btn {
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+.btn:active { transform: scale(0.97); }
+.btn-start { background-color: #28a745; color: white; }
+.btn-start:hover { background-color: #218838; }
+.btn-stop { background-color: #dc3545; color: white; }
+.btn-stop:hover { background-color: #c82333; }
+.btn-reset { background-color: #6c757d; color: white; }
+.btn-reset:hover { background-color: #5a6268; }
+
+.trigger-status {
+    display: flex !important;
+    flex-direction: column !important; /* Tvinger browseren til at stable lodret */
+    align-items: flex-start;           /* Justerer rækkerne til venstre */
+    gap: 10px;                         /* Afstand mellem de to statusser */
+    font-weight: bold;
+    font-size: 14px;
+    color: #555566;
+    text-transform: uppercase;
+    background: #eef2f5;
+    padding: 12px 20px;
+    border-radius: 8px;
+    min-width: 250px;                  /* Tvinger boksen til at have bredde nok til to linjer */
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+.dot.active_program {
+    background-color: var(--chart-yellow-border);
+    box-shadow: 0 0 8px var(--chart-yellow-bg);
+}
+.dot.active_faring {
+    background-color: var(--chart-red-border);
+    box-shadow: 0 0 8px var(--chart-red-bg);
+}
+h1 {
+    color: #1a1a24;
+    margin-bottom: 25px;
+}
+.status-row {
+    display: flex;
+    align-items: center;       /* Sørger for at tekst og prik flugter horisontalt */
+    gap: 10px;                 /* Bevarer din originale afstand mellem elementerne */
+}
+
+/* Ny klasse: Sikrer at prikkerne og teksten står snorlige under hinanden */
+.status-label {
+    min-width: 140px;          /* Gør tekstfeltet bredt nok til 'System Status:' */
+}
