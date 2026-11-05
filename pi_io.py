@@ -29,7 +29,7 @@ def perform_reset():
     config.status.is_running = False
     config.status.simulated_hour = 0
     config.status.current_value = 0.0
-    config.status.program_active = False
+    config.status.heater_active = False
     config.status.faring_active = False
     config.status.history = []
     print("--- SYSTEM RESET ACTIVATED ---")
