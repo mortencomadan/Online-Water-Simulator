@@ -1,0 +1,92 @@
+import time
+import threading
+from flask import Flask, render_template, jsonify
+from gpiozero import LED, Button
+
+# --- CONFIGURATION ---
+SECONDS_PER_HOUR = 5.0  # How fast time flies (5 real-world seconds = 1 demo-hour)
+TRIGGER_HOUR = 12       # The "hour" at which an IO pulse signal is sent
+PULSE_PIN = 17          # GPIO pin that sends the pulse (GPIO 17 / Pin 11)
+START_PIN = 27          # GPIO pin for future start button (GPIO 27 / Pin 13)
+
+app = Flask(__name__)
+
+# Global status tracking
+status = {
+    "is_running": True,  # Set to False if you want it to wait for the START_PIN in the future
+    "simulated_hour": 0,
+    "current_value": 0.0,
+    "history": []        # Stores the ending values of previous hours
+}
+
+# GPIO Setup
+# Commented out so you can test the code without physical hardware first. 
+# Remove the '#' to activate them when ready.
+# pulse_output = LED(PULSE_PIN)
+# start_button = Button(START_PIN)
+
+def time_simulation():
+    global status
+    base_value = 10  # Starting point for the graph
+    
+    while True:
+        if not status["is_running"]:
+            time.sleep(0.1)
+            continue
+            
+        start_time = time.time()
+        hour_at_start = status["simulated_hour"]
+        
+        # Loop running within a single "hour"
+        while time.time() - start_time < SECONDS_PER_HOUR:
+            if not status["is_running"]:
+                break
+            
+            progress = (time.time() - start_time) / SECONDS_PER_HOUR
+            
+            # The value slowly rises as the hour progresses
+            # Here it goes up by 15 units per hour with a slight curve
+            status["current_value"] = base_value + (hour_at_start * 5) + (progress * 15)
+            time.sleep(0.05) # Server update rate (20 Hz)
+            
+        if not status["is_running"]:
+            continue
+            
+        # Hour finished -> Save to history and move to the next hour
+        status["history"].append({
+            "hour": status["simulated_hour"],
+            "value": status["current_value"]
+        })
+        
+        # Keep only the last 24 hours on the graph
+        if len(status["history"]) > 24:
+            status["history"].pop(0)
+            
+        status["simulated_hour"] = (status["simulated_hour"] + 1) % 24
+        
+        # Check if we hit the trigger hour and send a pulse
+        if status["simulated_hour"] == TRIGGER_HOUR:
+            print(f"--- HOUR {TRIGGER_HOUR} REACHED! SENDING PULSE ---")
+            # pulse_output.on()
+            # time.sleep(0.5) # Pulse duration of half a second
+            # pulse_output.off()
+
+# Start the simulation thread in the background
+threading.Thread(target=time_simulation, daemon=True).start()
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/data')
+def data():
+    return jsonify({
+        "hour": status["simulated_hour"],
+        "value": status["current_value"],
+        "history": status["history"]
+    })
+
+if __name__ == '__main__':
+    # Runs the server on port 5000, accessible to anyone on your network
+    app.run(host='0.0.0.0', port=5000, debug=False)
+
