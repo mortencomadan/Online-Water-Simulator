@@ -1,7 +1,7 @@
 # --- CONFIGURATION ---
 SECONDS_PER_HOUR = 2.2  # Speed of the simulation (seconds per simulated hour)
-TURN_ON_HOUR = 3       # Simulated hour that triggers the pulse signal
-FARING_HOUR = 6
+TURN_ON_HOUR = 45       # Simulated hour that triggers the pulse signal
+FARING_HOUR = 48
 PULSE_START_PIN = 18          # GPIO pin sending the pulse (Physical Pin 11)
 PULSE_STOP_PIN = 23         # GPIO pin sending the pulse (Physical Pin 11)
 INPUT_START_PIN = 24          # GPIO pin for physical start button (Physical Pin 13)
