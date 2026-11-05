@@ -75,7 +75,7 @@ async function updateData() {
         const faring_dot = document.getElementById('status-dot');
         const faring_txt = document.getElementById('status-text');
 
-        if (data.pulse_active) {
+        if (data.heater_active) {
             program_dot.classList.add('active_program');
             program_txt.innerText = "Program Startet";
             program_txt.style.color = getColorCode("Yellow", false);
