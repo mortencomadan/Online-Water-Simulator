@@ -66,7 +66,7 @@ async function updateData() {
 
         // Opdater tekst-felter
         document.getElementById('txt-time').innerText = `Time ${data.hour.toString()}`;
-        document.getElementById('txt-value').innerText = `${data.value.toFixed(2)}L`;
+        document.getElementById('txt-value').innerText = `${data.value.toFixed(2)}L/h`;
 
         // Opdater Live Trigger Status (GPIO indikation)
         const program_dot = document.getElementById('trigger-dot');
@@ -77,7 +77,7 @@ async function updateData() {
 
         if (data.heater_active) {
             program_dot.classList.add('active_program');
-            program_txt.innerText = "Program Startet";
+            program_txt.innerText = "Varme Tændt";
             program_txt.style.color = getColorCode("Yellow", false);
         } else {
             program_dot.classList.remove('active_program');
@@ -95,13 +95,13 @@ async function updateData() {
         }
 
         // Opdater grafer
-        let labels = data.history.map(h => `H${h.hour}`);
+        let labels = data.history.map(h => `${h.hour}`);
         let values = data.history.map(h => h.value);
         let backgroundColors = data.history.map(h => getColorCode(h.color, true));
         let borderColors = data.history.map(h => getColorCode(h.color, false));
 
         if (data.is_running) {
-            labels.push(`H${data.hour} (Nu)`);
+            labels.push(`${data.hour}`);
             values.push(data.value);
             backgroundColors.push(getColorCode(data.color, true));
             borderColors.push(getColorCode(data.color, false));

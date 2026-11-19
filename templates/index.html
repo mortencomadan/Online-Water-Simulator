@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autostart Simulator</title>
+    <title>Automatisk opstart af varme i grisehule inden faring</title>
     
     <!-- CSS fil fra static mappen -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -13,17 +13,17 @@
 </head>
 <body>
 
-    <h1>Autostart Simulator</h1>
+    <h1>Automatisk opstart af varme i grisehule inden faring</h1>
 
     <!-- Telemetry Graph Canvas Box -->
     <div class="container">
         <div class="status-box">
             <div class="status-item">
-                Simuleret Tid
+                Forventet tid før faring
                 <span id="txt-time">Time 0</span>
             </div>
             <div class="status-item">
-                Aktuel Antal Liter
+                Soens drikkevand
                 <span id="txt-value">0.00</span>
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="trigger-status">
             <!-- Række 1: Grisestyring -->
             <div class="status-row">
-                <span class="status-label">Grisestyring:</span>
+                <span class="status-label">Grisehule:</span>
                 <div id="trigger-dot" class="dot"></div>
                 <span id="trigger-text">Venter</span>
             </div>

@@ -27,7 +27,7 @@ def perform_reset():
     """Shared reset logic for both physical button and web requests"""
     pulse_stop()    
     config.status.is_running = False
-    config.status.simulated_hour = 0
+    config.status.simulated_hour = config.START_HOUR
     config.status.current_value = 0.0
     config.status.heater_active = False
     config.status.faring_active = False
