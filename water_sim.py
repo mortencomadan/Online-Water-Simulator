@@ -60,10 +60,14 @@ def time_simulation():
             
             continue 
 
+        # Automatically restart when the final hour finishes
         if config.status.simulated_hour == len(config.HOURLY_TARGETS) - 1:
-            print("--- SIMULATION FINISHED: AUTOMATIC STOP ---")
+            print("--- SIMULATION FINISHED: RESTARTING AUTOMATICALLY ---")
             pulse_stop()
-            config.status.is_running = False
+            config.status.history.clear()
+            config.status.simulated_hour = 0
+            config.status.heater_active = False
+            config.status.faring_active = False
             config.status.current_value = 0.0
             continue
 

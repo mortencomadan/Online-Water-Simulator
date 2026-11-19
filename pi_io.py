@@ -31,6 +31,7 @@ def perform_reset():
     config.status.current_value = 0.0
     config.status.heater_active = False
     config.status.faring_active = False
+    config.status.current_color = "Blue"    
     config.status.history = []
     print("--- SYSTEM RESET ACTIVATED ---")
 
